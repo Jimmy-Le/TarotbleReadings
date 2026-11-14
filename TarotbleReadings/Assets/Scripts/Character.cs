@@ -20,9 +20,4 @@ public class Character : ScriptableObject
         return questions[currentQuestion];
     }
 
-    //true means done, false means not done
-    public bool CheckIfDone(){
-        return currentQuestion == -1;
-    }
-
 }
