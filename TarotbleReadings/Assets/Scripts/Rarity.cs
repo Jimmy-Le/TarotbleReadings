@@ -1,6 +1,6 @@
 using UnityEngine;
 
-enum Rarity{
+public enum Rarity{
     silver,
     gold,
     prismatic,
