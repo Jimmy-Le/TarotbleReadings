@@ -15,5 +15,5 @@ MonoBehaviour:
   question: You're my good luck charm! Should I take out a loan to use at the casino?
   yesAnswer: Looks like luck is on my side!
   noAnswer: I guess I'll settle with using the money to pay off my mortgage...
-  yesNextQ: -1
-  noNextQ: -1
+  yesNextQ: 0
+  noNextQ: 0

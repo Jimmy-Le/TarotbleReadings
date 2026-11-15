@@ -13,6 +13,7 @@ public class CharacterScript : MonoBehaviour
     void Start()
     {
         portrait.sprite = characterData.GetImage();
+        characterData.SetCurrentQuestion(0);
          
     }
 

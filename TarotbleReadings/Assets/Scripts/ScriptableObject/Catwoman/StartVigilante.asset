@@ -15,5 +15,5 @@ MonoBehaviour:
   question: With everything that has happened... Maybe it is time for a career change! Should I become an assassin?
   yesAnswer: Now where would I find the proper gear for this job...?
   noAnswer: Yes, perhaps that was a little drastic.
-  yesNextQ: -1
-  noNextQ: -1
+  yesNextQ: 0
+  noNextQ: 0

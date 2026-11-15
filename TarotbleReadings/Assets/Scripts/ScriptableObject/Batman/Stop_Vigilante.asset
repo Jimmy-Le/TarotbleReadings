@@ -15,5 +15,5 @@ MonoBehaviour:
   question: For the sake of my future... Should I leave behind my life as an assassin...?
   yesAnswer: Yes... It may be time to settle down...
   noAnswer: That's right... This country needs me to keep these streets safe. Thank you.
-  yesNextQ: -1
-  noNextQ: -1
+  yesNextQ: 0
+  noNextQ: 0

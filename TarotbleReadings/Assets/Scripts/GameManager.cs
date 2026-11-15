@@ -381,6 +381,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void nextClicked(){
+        textFader.SkipToEnd();
         //changes state!
         ChangeState(GameState.past);
     }

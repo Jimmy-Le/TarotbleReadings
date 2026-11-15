@@ -847,7 +847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200df1c8b5e75d4b8b6a6bab78341d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TextFader
-  charactersPerSecond: 5
+  charactersPerSecond: 20
 --- !u!1 &576575084
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,5 +15,5 @@ MonoBehaviour:
   question: I'm in astronomical amounts of debt. Should I take out a 100000$ loan?
   yesAnswer: Hm, I wonder who could co-sign for me.
   noAnswer: I guess I can ask all my buddies for money to pay my rent...
-  yesNextQ: -1
-  noNextQ: -1
+  yesNextQ: 0
+  noNextQ: 0
