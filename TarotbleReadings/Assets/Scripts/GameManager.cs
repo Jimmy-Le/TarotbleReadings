@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private GameState gameState;
 
     private Character currentCustomer;
+    [SerializeField] private CharacterScript characterScript;
 
     public static GameManager GMInstance;
 
@@ -102,14 +103,18 @@ public class GameManager : MonoBehaviour
      private void CustomerArrivalState(){
         Debug.Log("CustomerArrival");
         // slide in a character
-        //we need to assign the character scriptable object to the charcaterScript and then call the characterSCript to move stuff
         currentCustomer = PickCustomer();
-        currentCustomer.MoveToCenter();
+        characterScript.UpdateCharacter(currentCustomer);
+        characterScript.MoveToCenter();
+
         // display the dialog
+        // click next on dialog to switch to the pastState
     }
 
      private void PastState(){
         Debug.Log("Past");
+        //activate the deck button
+        // when clicked, placed card on past spot, then move to present
     }
 
      private void PresentState(){

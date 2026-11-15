@@ -17,9 +17,9 @@ public class CharacterScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    public void UpdateCharacter(Character newCharacter){
+        characterData = newCharacter;
+        portrait.sprite = characterData.GetImage();
     }
 
     public void MoveToCenter(){
