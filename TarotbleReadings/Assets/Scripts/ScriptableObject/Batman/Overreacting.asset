@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ccb489d94616884cb4163d8c814dbbd, type: 3}
+  m_Name: Overreacting
+  m_EditorClassIdentifier: Assembly-CSharp::Question
+  question: 'They found out about my double life. and is now upset about me. I don''t think it is such a big deal. Are they overeacting?  '
+  yesAnswer: I knew it. They just can't understand the necessary sacrifices to keep our family safe!
+  noAnswer: This can't be right.. I will have to plan what to do next...
+  yesNextQ: 4
+  noNextQ: 4

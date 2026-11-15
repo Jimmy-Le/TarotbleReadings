@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0750016f24e541442bf71090c9d28cba, type: 3}
+  m_Name: Batman
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  questions:
+  - {fileID: 11400000, guid: be3753d123c7f1e769af39664cac3b3f, type: 2}
+  - {fileID: 11400000, guid: 6055e0d4f17e289cfab836a1918b7be3, type: 2}
+  - {fileID: 11400000, guid: ae54903f05161a163aaae41fc7d0c92d, type: 2}
+  - {fileID: 11400000, guid: 0370f5203d3195bf58b6caec29ce6b4c, type: 2}
+  image: {fileID: 21300000, guid: aeacd8ddfdb04c842be922e777334f2a, type: 3}
