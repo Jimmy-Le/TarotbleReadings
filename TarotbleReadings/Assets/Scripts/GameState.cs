@@ -9,7 +9,8 @@ public enum GameState{
     future,
     bonus,
     response,
-    leave
+    leave,
+    view
 }
     //0 --> customer walks in
     //1 --> picking past

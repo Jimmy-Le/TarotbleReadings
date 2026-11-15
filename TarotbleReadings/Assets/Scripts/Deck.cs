@@ -30,6 +30,10 @@ public class Deck : ScriptableObject
         cards[randomIndex].SetRarity(GenerateRarity());
         //reversed?
         cards[randomIndex].SetReverse(GenerateReverse());
+
+        //put it in the pulled cards list
+        _pulledCards.Add(cards[randomIndex]);
+        
         return cards[randomIndex];
     }
 
