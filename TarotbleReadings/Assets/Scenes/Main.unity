@@ -1283,10 +1283,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   characters:
   - {fileID: 11400000, guid: ffb8b90269194364fb6dbcd700cc4af7, type: 2}
-  deck: {fileID: 0}
+  deck: {fileID: 11400000, guid: 65d6942ccaac1414b844cd0e4707fd1f, type: 2}
   characterScript: {fileID: 2082992117}
   dialog: {fileID: 561350979}
   dialogBox: {fileID: 1877709131}
+  yesButton: {fileID: 711708205}
+  noButton: {fileID: 1821712012}
+  cardPrefab: {fileID: 7574945392143127841, guid: c86a15c584e21fb4bbd3e064293a0698, type: 3}
 --- !u!1 &1523095958
 GameObject:
   m_ObjectHideFlags: 0

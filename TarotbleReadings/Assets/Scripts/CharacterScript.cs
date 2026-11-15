@@ -34,4 +34,5 @@ public class CharacterScript : MonoBehaviour
     public void ResetPosition(){
         Tween.PositionX(characterTransform, endValue: startPosition, duration: 0, ease: Ease.InOutSine);
     }
+    
 }

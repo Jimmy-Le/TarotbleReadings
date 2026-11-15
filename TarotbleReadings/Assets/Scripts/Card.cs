@@ -7,7 +7,7 @@ public class Card : ScriptableObject
     [SerializeField] private Material image;
     [SerializeField] private Material border;
     [SerializeField] private Rarity rarity;
-    [SerializeField] private Transform cardTransform;
+    
     //true means reversed
     private bool _reverse;
 
@@ -41,7 +41,5 @@ public class Card : ScriptableObject
         return _reverse;
     }
 
-    public Transform GetTransform(){
-        return cardTransform;
-    }
+    
 }

@@ -7,11 +7,35 @@ public class CardScript : MonoBehaviour
     [SerializeField] private MeshRenderer meshRendererImage;
     [SerializeField] private MeshRenderer meshRendererBorder;
     [SerializeField] private TextMeshPro textMeshProName;
-  
+    [SerializeField] private Transform cardTransform;
+    private Spot spot;
    
     void Awake()
     {
-        //check if flipped
+        if(cardData != null){
+            UpdateCard();
+        }
+    }
+
+    public Transform GetTransform(){
+        return cardTransform;
+    }
+
+    public Spot GetSpot(){
+        return spot;
+    }
+
+    public void SetSpot(Spot newSpot){
+        spot = newSpot;
+    }
+
+    public void SetCardData(Card newCardData){
+        cardData = newCardData;
+        UpdateCard();
+    }
+
+    public void UpdateCard(){
+         //check if flipped
         if(cardData.GetReverse()){
             this.GetComponent<Transform>().localRotation *= Quaternion.Euler(0,0,180);
         }
@@ -21,8 +45,6 @@ public class CardScript : MonoBehaviour
         meshRendererBorder.material = cardData.GetBorder();
         //name
         textMeshProName.SetText(cardData.GetCardName());
-
-        
-
     }
+
 }
