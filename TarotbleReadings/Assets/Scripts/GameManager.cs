@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject dialogBox;
     [SerializeField] private GameObject yesButton;
     [SerializeField] private GameObject noButton;
+    
 
     public static GameManager GMInstance;
 
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        AudioManager.PlaySound(AudioManager.SoundType.Prismatic, 1f);
         ChangeState(GameState.customerArrival);
         _spotScale = 0.31f;
         _spotRotationX = -60f;
@@ -179,6 +181,8 @@ public class GameManager : MonoBehaviour
         //disable all buttons
         yesButton.GetComponent<Button>().interactable = false;
         noButton.GetComponent<Button>().interactable = false;
+
+        //to exit, check if player clicks outside the card
         //return to previous state once view is removed
     }
 
