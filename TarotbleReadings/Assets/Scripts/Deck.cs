@@ -9,6 +9,10 @@ public class Deck : ScriptableObject
     [SerializeField] private List<Card> cards;
     private List<Card> _pulledCards;
 
+    void Awake(){
+        _pulledCards = new List<Card>();
+    }
+
     public void AddToPulledCards(Card card){
         _pulledCards.Add(card);
     }
@@ -33,7 +37,7 @@ public class Deck : ScriptableObject
 
         //put it in the pulled cards list
         _pulledCards.Add(cards[randomIndex]);
-        
+
         return cards[randomIndex];
     }
 
