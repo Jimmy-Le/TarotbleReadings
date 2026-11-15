@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject flipButton;
     [SerializeField] private GameObject exitViewButton;
+    [SerializeField] private GameObject byeButton;
+    [SerializeField] private GameObject nextCustomerButton;
 
     [SerializeField] private TextFader textFader;           // The script attached to the dialog box that will populate it
     
@@ -42,6 +44,13 @@ public class GameManager : MonoBehaviour
     private float _spotPastX;
     private float _spotPastY;
     private float _spotPastZ;
+    //present
+    private float _spotPresentX;
+    //future
+    private float _spotFutureX;
+    //bonus
+    private float _spotBonusX;
+
 
     //zoom
      private float _spotScaleZoom;
@@ -78,6 +87,9 @@ public class GameManager : MonoBehaviour
         _spotPastX = -1.52f;
         _spotPastY = -2.49f;
        _spotPastZ = -3.85f;
+       _spotPresentX = 0.24f;
+       _spotFutureX = 1.99f;
+       _spotBonusX = 3.77f;
 
         //zoom
         _spotRotationXZoom = 0f;
@@ -155,9 +167,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("CustomerArrival");
         deckButton.GetComponent<Button>().interactable = false;
         yesButton.SetActive(false);
-        noButton.SetActive(false);
+        yesButton.GetComponent<Button>().interactable = false;
+        noButton.GetComponent<Button>().interactable = false;
         flipButton.SetActive(false);
         exitViewButton.SetActive(false);
+        nextCustomerButton.SetActive(false);
+        byeButton.SetActive(false);
+        nextButton.SetActive(true);
         // slide in a character
         currentCustomer = PickCustomer();
         characterScript.UpdateCharacter(currentCustomer);
@@ -167,6 +183,7 @@ public class GameManager : MonoBehaviour
         dialogBox.SetActive(true);
         // dialog.text = currentCustomer.GetCurrentQuestion().GetQuestion();
         textFader.ShowText(currentCustomer.GetCurrentQuestion().GetQuestion());
+        flipButton.GetComponent<Button>().interactable = true;
 
 
 
@@ -182,6 +199,7 @@ public class GameManager : MonoBehaviour
         nextButton.SetActive(false);
         flipButton.SetActive(false);
         exitViewButton.SetActive(false);
+        flipButton.GetComponent<Button>().interactable = true;
         // when clicked, go to view mode
         //pick a card
         //assign the past spot to the card
@@ -189,23 +207,59 @@ public class GameManager : MonoBehaviour
     }
 
      private void PresentState(){
+        deckButton.GetComponent<Button>().interactable = true;
         Debug.Log("Present");
+        flipButton.SetActive(false);
+        exitViewButton.SetActive(false);
+        flipButton.GetComponent<Button>().interactable = true;
     }
 
      private void FutureState(){
+        deckButton.GetComponent<Button>().interactable = true;
         Debug.Log("Future");
+        flipButton.SetActive(false);
+        exitViewButton.SetActive(false);
+        yesButton.GetComponent<Button>().interactable = true;
+        noButton.GetComponent<Button>().interactable = true;
+        flipButton.GetComponent<Button>().interactable = true;
+        
     }
 
      private void BonusState(){
         Debug.Log("Bonus");
+        flipButton.SetActive(false);
+        exitViewButton.SetActive(false);
+        yesButton.GetComponent<Button>().interactable = true;
+        noButton.GetComponent<Button>().interactable = true;
+        deckButton.GetComponent<Button>().interactable = false;
+        flipButton.GetComponent<Button>().interactable = true;
     }
 
      private void ResponseState(){
         Debug.Log("Response");
+        yesButton.SetActive(false);
+        noButton.SetActive(false);
+        displayAnswer();
+        byeButton.SetActive(true);
     }
 
      private void LeaveState(){
         Debug.Log("Leave");
+        //close dialog
+        deckButton.GetComponent<Button>().interactable = false;
+        yesButton.SetActive(false);
+        noButton.SetActive(false);
+        flipButton.SetActive(false);
+        exitViewButton.SetActive(false);
+        dialogBox.SetActive(false);
+        //move character out
+        characterScript.MoveOffScreen();
+
+        //next customer button
+        nextCustomerButton.SetActive(true);
+        byeButton.SetActive(false);
+        DestroyCards();
+
     }
 
     private void ViewState(){
@@ -213,9 +267,7 @@ public class GameManager : MonoBehaviour
         //disable all buttons
         yesButton.GetComponent<Button>().interactable = false;
         noButton.GetComponent<Button>().interactable = false;
-
-        //to exit, check if player clicks outside the card
-        //return to previous state once view is removed
+        deckButton.GetComponent<Button>().interactable = false;
     }
 
     //------------------------------EHLPERS---------------------------//
@@ -233,6 +285,36 @@ public class GameManager : MonoBehaviour
                  .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
                  .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotPastZ, duration: 2f));
                 break;
+            case Spot.present:
+                Sequence.Create(cycles: 1, CycleMode.Yoyo)
+                 //shrink card
+                 .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 //place at past
+                 .Group(Tween.PositionX(card.GetTransform(), endValue: _spotPresentX, duration: 2f))
+                 .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
+                 .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotPastZ, duration: 2f));
+            break;
+            case Spot.future:
+                Sequence.Create(cycles: 1, CycleMode.Yoyo)
+                 //shrink card
+                 .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 //place at past
+                 .Group(Tween.PositionX(card.GetTransform(), endValue: _spotFutureX, duration: 2f))
+                 .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
+                 .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotPastZ, duration: 2f));
+            break;
+            case Spot.bonus:
+                Sequence.Create(cycles: 1, CycleMode.Yoyo)
+                 //shrink card
+                 .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 //place at past
+                 .Group(Tween.PositionX(card.GetTransform(), endValue: _spotBonusX, duration: 2f))
+                 .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
+                 .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotPastZ, duration: 2f));
+            break;
         }
     }
 
@@ -301,6 +383,35 @@ public class GameManager : MonoBehaviour
         ChangeState(previousState);
     }
 
+    public void yesClicked(){
+        // let it know which answer was selected
+        currentCustomer.GetCurrentQuestion().SetAnswer(Answer.yes);
+        //set up the next question
+        currentCustomer.SetCurrentQuestion(currentCustomer.GetCurrentQuestion().GetYesNextQ());
+        //go to response state
+        ChangeState(GameState.response);
+    }
+
+    public void noClicked(){
+        // let it know which answer was selected
+        currentCustomer.GetCurrentQuestion().SetAnswer(Answer.no);
+        //set up the next question
+        currentCustomer.SetCurrentQuestion(currentCustomer.GetCurrentQuestion().GetNoNextQ());
+        //go to response state
+        ChangeState(GameState.response);
+    }
+
+    public void byeClicked(){
+        //switch to leave state
+        ChangeState(GameState.leave);
+    }
+
+    public void nextCustomerClicked(){
+        characterScript.ResetPosition();
+        ChangeState(GameState.customerArrival);
+
+    }
+
     public CardScript CreateNewCard(){
          //instantiate a new card prefab
         GameObject newCard = Instantiate(cardPrefab, _deckPosition, Quaternion.Euler(_deckRotation));
@@ -325,5 +436,21 @@ public class GameManager : MonoBehaviour
                 break;
         }
         return  newCard.GetComponent<CardScript>();
+    }
+
+    public void displayAnswer(){
+        if(currentCustomer.GetCurrentQuestion().GetAnswer() == Answer.yes){
+            textFader.ShowText(currentCustomer.GetCurrentQuestion().GetYesAnswer());
+        }
+        else if(currentCustomer.GetCurrentQuestion().GetAnswer() == Answer.no){
+            textFader.ShowText(currentCustomer.GetCurrentQuestion().GetNoAnswer());
+        }
+        
+    }
+
+    public void DestroyCards(){
+        for(int i = 0; i < _pulledCards.Count ; i++){
+            Destroy(_pulledCards[i]);
+        }
     }
 }
