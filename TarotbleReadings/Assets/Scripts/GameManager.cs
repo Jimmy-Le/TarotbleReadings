@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         
         ChangeState(GameState.customerArrival);
         _spotScale = 0.31f;
-        _spotRotationX = -60f;
+        _spotRotationX = 60f;
         _spotPastX = -1.52f;
         _spotPastY = -2.49f;
        _spotPastZ = -3.85f;
@@ -102,7 +102,11 @@ public class GameManager : MonoBehaviour
        _deckRotation = new Vector3(-60f,0f,0f);
        deckCounter = 0;
 
-       AudioManager.PlaySound(AudioManager.SoundType.Prismatic, 1f);
+        if(AudioManager.instance != null)
+        {
+            AudioManager.PlaySound(AudioManager.SoundType.Prismatic, 1f);
+        }
+       
 
     }
 
@@ -273,13 +277,17 @@ public class GameManager : MonoBehaviour
     //------------------------------EHLPERS---------------------------//
 
     public void PlaceCard(Spot spot, CardScript card){
+        float viewedRotationX = viewedCard.GetCardData().GetReverse() ? 240 : -60;
+        float viewedRotationY = viewedCard.GetCardData().GetReverse() ? 0: -180f;
+
+
         //place in the correctSpot
         switch (spot){
             case Spot.past:
                Sequence.Create(cycles: 1, CycleMode.Yoyo)
                  //shrink card
                  .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
-                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(viewedRotationX, viewedRotationY, 0f), duration: 2f))
                  //place at past
                  .Group(Tween.PositionX(card.GetTransform(), endValue: _spotPastX, duration: 2f))
                  .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
@@ -289,7 +297,7 @@ public class GameManager : MonoBehaviour
                 Sequence.Create(cycles: 1, CycleMode.Yoyo)
                  //shrink card
                  .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
-                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(viewedRotationX, viewedRotationY, 0f), duration: 2f))
                  //place at past
                  .Group(Tween.PositionX(card.GetTransform(), endValue: _spotPresentX, duration: 2f))
                  .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
@@ -299,7 +307,7 @@ public class GameManager : MonoBehaviour
                 Sequence.Create(cycles: 1, CycleMode.Yoyo)
                  //shrink card
                  .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
-                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(viewedRotationX, viewedRotationY, 0f), duration: 2f))
                  //place at past
                  .Group(Tween.PositionX(card.GetTransform(), endValue: _spotFutureX, duration: 2f))
                  .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
@@ -309,7 +317,7 @@ public class GameManager : MonoBehaviour
                 Sequence.Create(cycles: 1, CycleMode.Yoyo)
                  //shrink card
                  .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
-                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(viewedRotationX, viewedRotationY, 0f), duration: 2f))
                  //place at past
                  .Group(Tween.PositionX(card.GetTransform(), endValue: _spotBonusX, duration: 2f))
                  .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
@@ -326,15 +334,25 @@ public class GameManager : MonoBehaviour
     public void ViewCard(CardScript card){
         viewedCard = card;
         previousState = gameState;
+
+        float viewedRotationX = viewedCard.GetCardData().GetReverse() ? 180f : 0f;
+        float viewedRotationY = viewedCard.GetCardData().GetReverse() ? 180f: 0f;
+
+        // viewedCard.GetTransform().rotation = Quaternion.Euler(0f, 180f, 0f);
         ChangeState(GameState.view);
         Debug.Log(card.GetTransform());
+
+
         //move card to the center of the screen to view it
         Sequence.Create(cycles: 1, CycleMode.Yoyo)
-                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationXZoom, 0f, 0f), duration: 2f))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(viewedRotationX, viewedRotationY, 0f), duration: 2f))
                  //place in the middle of the screen
                  .Group(Tween.PositionX(card.GetTransform(), endValue: _spotZoomX, duration: 2f))
                  .Group(Tween.PositionY(card.GetTransform(), endValue: _spotZoomY, duration: 2f))
                  .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotZoomZ, duration: 2f));
+
+
+
         flipButton.SetActive(true);
         exitViewButton.SetActive(true);
     }
@@ -368,8 +386,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void flipClicked(){
+        
+        float viewedRotationX = viewedCard.GetCardData().GetReverse() ? 180 : 0f;
+        float viewedRotationY = viewedCard.GetCardData().GetReverse() ? 0f: 180f;
+        Debug.Log(viewedCard.GetCardData().GetReverse());
+      
         //rotate card to show other side
-        Tween.Rotation(viewedCard.GetTransform(), endValue: new Vector3(_spotRotationXZoom, 180f, 0f), duration: 2f);
+        Tween.Rotation(viewedCard.GetTransform(), endValue: new Vector3(viewedRotationX, viewedRotationY, 0f), duration: 2f);
         //disable the button
         //you get ONE flip
         flipButton.GetComponent<Button>().interactable = false;
