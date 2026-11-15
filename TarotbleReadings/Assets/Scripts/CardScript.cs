@@ -29,6 +29,10 @@ public class CardScript : MonoBehaviour
         spot = newSpot;
     }
 
+    public Card GetCardData(){
+        return cardData;
+    }
+
     public void SetCardData(Card newCardData){
         cardData = newCardData;
         UpdateCard();

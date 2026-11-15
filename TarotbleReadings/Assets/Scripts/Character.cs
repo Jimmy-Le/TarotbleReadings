@@ -24,4 +24,8 @@ public class Character : ScriptableObject
         return image;
     }
 
+    public void SetCurrentQuestion(int currentQuestion){
+        this.currentQuestion = currentQuestion;
+    }
+
 }
