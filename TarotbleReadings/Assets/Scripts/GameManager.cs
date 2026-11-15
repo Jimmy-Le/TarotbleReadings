@@ -255,7 +255,18 @@ public class GameManager : MonoBehaviour
 
     public void flipClicked(){
         //rotate card to show other side
-        Tween.Rotation(viewedCard.GetTransform(), endValue: new Vector3(_spotRotationXZoom, 180f, 0f), duration: 2f)
+        Tween.Rotation(viewedCard.GetTransform(), endValue: new Vector3(_spotRotationXZoom, 180f, 0f), duration: 2f);
+        //disable the button
+        //you get ONE flip
+        flipButton.GetComponent<Button>().interactable = false;
+    }
+
+    public void exitClicked(){
+        Spot spot = Spot.past;
+        //moves card to its spot
+        PlaceCard(viewedCard.GetSpot(), viewedCard);
+
+        ChangeState(previousState);
     }
 
     public CardScript CreateNewCard(){
