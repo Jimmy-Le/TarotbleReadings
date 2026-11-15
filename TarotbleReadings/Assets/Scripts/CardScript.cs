@@ -41,7 +41,7 @@ public class CardScript : MonoBehaviour
     public void UpdateCard(){
          //check if flipped
         if(cardData.GetReverse()){
-            this.GetComponent<Transform>().localRotation *= Quaternion.Euler(0,0,180);
+            this.GetComponent<Transform>().localRotation *= Quaternion.Euler(0,0,180);    // Originally Z: 180
         }
         //setting the images
         meshRendererImage.material = cardData.GetImage();
