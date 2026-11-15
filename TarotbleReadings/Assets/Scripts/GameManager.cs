@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     private GameState gameState;
     private GameState previousState;
+    private CardScript viewedCard;
 
     private Character currentCustomer;
     [SerializeField] private CharacterScript characterScript;
@@ -21,6 +22,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject dialogBox;
     [SerializeField] private GameObject yesButton;
     [SerializeField] private GameObject noButton;
+    [SerializeField] private GameObject deckButton;
+    [SerializeField] private GameObject nextButton;
+    [SerializeField] private GameObject flipButton;
+    [SerializeField] private GameObject exitViewButton;
     
 
     public static GameManager GMInstance;
@@ -55,12 +60,14 @@ public class GameManager : MonoBehaviour
         else{
             Destroy(gameObject);
         }
+
+        _pulledCards = new List<GameObject>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        AudioManager.PlaySound(AudioManager.SoundType.Prismatic, 1f);
+        
         ChangeState(GameState.customerArrival);
         _spotScale = 0.31f;
         _spotRotationX = -60f;
@@ -70,13 +77,15 @@ public class GameManager : MonoBehaviour
 
         //zoom
         _spotRotationXZoom = 0f;
-        _spotZoomX = 0f;
+        _spotZoomX = -0.27f;
         _spotZoomY = 0f;
        _spotZoomZ = -8.2f;
 
        //deck position
        _deckPosition = new Vector3(-3.93f,-2.49f,-3.85f);
-       _deckRotation = new Vector3(-60f,180f,0f);
+       _deckRotation = new Vector3(-60f,0f,0f);
+
+       AudioManager.PlaySound(AudioManager.SoundType.Prismatic, 1f);
 
     }
 
@@ -134,6 +143,11 @@ public class GameManager : MonoBehaviour
 
      private void CustomerArrivalState(){
         Debug.Log("CustomerArrival");
+        deckButton.GetComponent<Button>().interactable = false;
+        yesButton.SetActive(false);
+        noButton.SetActive(false);
+        flipButton.SetActive(false);
+        exitViewButton.SetActive(false);
         // slide in a character
         currentCustomer = PickCustomer();
         characterScript.UpdateCharacter(currentCustomer);
@@ -142,14 +156,18 @@ public class GameManager : MonoBehaviour
         // display the dialog (MAKE SOMETHING FANCIER SO DIALOG APPEARS PROGRESSIVELY)
         dialogBox.SetActive(true);
         dialog.text = currentCustomer.GetCurrentQuestion().GetQuestion();
-
-        // once dialog is displayed, we can move to the past state
-        ChangeState(GameState.past);
     }
 
      private void PastState(){
+
         Debug.Log("Past");
         //activate the deck button
+        deckButton.GetComponent<Button>().interactable = true;
+        yesButton.SetActive(true);
+        noButton.SetActive(true);
+        nextButton.SetActive(false);
+        flipButton.SetActive(false);
+        exitViewButton.SetActive(false);
         // when clicked, go to view mode
         //pick a card
         //assign the past spot to the card
@@ -210,15 +228,19 @@ public class GameManager : MonoBehaviour
     }
 
     public void ViewCard(CardScript card){
+        viewedCard = card;
         previousState = gameState;
         ChangeState(GameState.view);
+        Debug.Log(card.GetTransform());
         //move card to the center of the screen to view it
         Sequence.Create(cycles: 1, CycleMode.Yoyo)
-                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationXZoom, -180f, 0f), duration: 2f))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationXZoom, 0f, 0f), duration: 2f))
                  //place in the middle of the screen
                  .Group(Tween.PositionX(card.GetTransform(), endValue: _spotZoomX, duration: 2f))
                  .Group(Tween.PositionY(card.GetTransform(), endValue: _spotZoomY, duration: 2f))
                  .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotZoomZ, duration: 2f));
+        flipButton.SetActive(true);
+        exitViewButton.SetActive(true);
     }
 
     public void deckClicked(){
@@ -226,9 +248,20 @@ public class GameManager : MonoBehaviour
        ViewCard(pulledCard);
     }
 
+    public void nextClicked(){
+        //changes state!
+        ChangeState(GameState.past);
+    }
+
+    public void flipClicked(){
+        //rotate card to show other side
+        Tween.Rotation(viewedCard.GetTransform(), endValue: new Vector3(_spotRotationXZoom, 180f, 0f), duration: 2f)
+    }
+
     public CardScript CreateNewCard(){
          //instantiate a new card prefab
         GameObject newCard = Instantiate(cardPrefab, _deckPosition, Quaternion.Euler(_deckRotation));
+        newCard.GetComponent<Transform>().localScale = new Vector3(_spotScale,_spotScale,_spotScale);
         //give it the card data
         newCard.GetComponent<CardScript>().SetCardData(deck.pickCard());
         //add the card to the pulled cards list

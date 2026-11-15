@@ -45,6 +45,7 @@ public class CardScript : MonoBehaviour
         meshRendererBorder.material = cardData.GetBorder();
         //name
         textMeshProName.SetText(cardData.GetCardName());
+        cardTransform = this.GetComponent<Transform>();
     }
 
 }
