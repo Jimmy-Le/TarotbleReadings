@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject flipButton;
     [SerializeField] private GameObject exitViewButton;
+
+    [SerializeField] private TextFader textFader;           // The script attached to the dialog box that will populate it
     
 
     public static GameManager GMInstance;
@@ -173,7 +175,11 @@ public class GameManager : MonoBehaviour
 
         // display the dialog (MAKE SOMETHING FANCIER SO DIALOG APPEARS PROGRESSIVELY)
         dialogBox.SetActive(true);
-        dialog.text = currentCustomer.GetCurrentQuestion().GetQuestion();
+        // dialog.text = currentCustomer.GetCurrentQuestion().GetQuestion();
+        textFader.ShowText(currentCustomer.GetCurrentQuestion().GetQuestion());
+
+
+
     }
 
      private void PastState(){
