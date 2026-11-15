@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Deck
   cards:
   - {fileID: 11400000, guid: 2806a5b137078594dadfd33e5ad2a9a6, type: 2}
+  - {fileID: 11400000, guid: 4f2f076084c336e409d1ae9baf9d4fc3, type: 2}
+  - {fileID: 11400000, guid: aa1dba8b7d9f4bd4ca2d366348b8b198, type: 2}
+  - {fileID: 11400000, guid: 3b0cc107ab5a9854e881bdbee7e1e7a8, type: 2}
+  - {fileID: 11400000, guid: 5fe8d30362e8df947be8943a29c7c569, type: 2}
