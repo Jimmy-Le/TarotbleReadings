@@ -1,9 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using PrimeTween;
 
 public class GameManager : MonoBehaviour
 {
-    private List<Character> characters;
+    [SerializeField] private List<Character> characters;
+
+    [SerializeField] private Deck deck;
+
     //0 --> customer walks in
     //1 --> picking past
     //2 --> picking present
@@ -16,6 +21,12 @@ public class GameManager : MonoBehaviour
     private Character currentCustomer;
 
     public static GameManager GMInstance;
+
+    private float _spotScale;
+    private float _spotRotationX;
+    private float _spotPastX;
+    private float _spotPastY;
+    private float _spotPastZ;
 
     void Awake(){
         //singleton stuff
@@ -31,6 +42,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameState = GameState.customerArrival;
+        _spotScale = 0.31f;
+        _spotRotationX = -60f;
+        _spotPastX = -1.52f;
+        _spotPastY = -2.49f;
+       _spotPastZ = -3.85f;
     }
 
     void Update(){
@@ -86,6 +102,9 @@ public class GameManager : MonoBehaviour
      private void CustomerArrivalState(){
         Debug.Log("CustomerArrival");
         // slide in a character
+        //we need to assign the character scriptable object to the charcaterScript and then call the characterSCript to move stuff
+        currentCustomer = PickCustomer();
+        currentCustomer.MoveToCenter();
         // display the dialog
     }
 
@@ -113,4 +132,19 @@ public class GameManager : MonoBehaviour
         Debug.Log("Leave");
     }
 
+    public void placeCard(Spot spot, Card card){
+        //place in the correctSpot
+        switch (spot){
+            case Spot.past:
+               Sequence.Create(cycles: 10, CycleMode.Yoyo)
+                 //shrink card
+                 .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 //place at past
+                 .Group(Tween.PositionX(card.GetTransform(), endValue: _spotPastX, duration: 2f))
+                 .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
+                 .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotPastZ, duration: 2f));
+                break;
+        }
+    }
 }
