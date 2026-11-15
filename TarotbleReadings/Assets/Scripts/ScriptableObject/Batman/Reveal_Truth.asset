@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ccb489d94616884cb4163d8c814dbbd, type: 3}
+  m_Name: Reveal_Truth
+  m_EditorClassIdentifier: Assembly-CSharp::Question
+  question: I've been hiding a terrible secret from my partner... Should I reveal the truth to them?
+  yesAnswer: Thank you.. It is about time I've come clean, even if it puts them at risk.
+  noAnswer: 'You''re right! I can''t involve them in. It is much too dangerous. This is the only way. '
+  yesNextQ: 2
+  noNextQ: 1
