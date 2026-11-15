@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using PrimeTween;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,20 +10,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Deck deck;
 
-    //0 --> customer walks in
-    //1 --> picking past
-    //2 --> picking present
-    //3 --> picking future (YES/NO ARE ENABLED)
-    //4 --> Bonus card?
-    //5 --> (yes/no chosen, get the answer)
-    //6 --> Goodbye, restart
     private GameState gameState;
 
     private Character currentCustomer;
     [SerializeField] private CharacterScript characterScript;
 
+    [SerializeField] private TextMeshProUGUI dialog;
+    [SerializeField] private GameObject dialogBox;
+
     public static GameManager GMInstance;
 
+    //for placing cards
     private float _spotScale;
     private float _spotRotationX;
     private float _spotPastX;
@@ -42,7 +40,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameState = GameState.customerArrival;
+        ChangeState(GameState.customerArrival);
         _spotScale = 0.31f;
         _spotRotationX = -60f;
         _spotPastX = -1.52f;
@@ -54,10 +52,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public Character PickCustomer(){
-        int randomIndex = Random.Range(0, characters.Count);
-        return characters[randomIndex];
-    }
+  //-----------------CHANGE STATE------------------------//
 
     public void ChangeState(GameState newState){
         gameState = newState;
@@ -92,6 +87,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //-----------------------STATE FUNCTIONS----------------------------//
+
     private void MainMenuState(){
         Debug.Log("main menu");
     }
@@ -107,8 +104,12 @@ public class GameManager : MonoBehaviour
         characterScript.UpdateCharacter(currentCustomer);
         characterScript.MoveToCenter();
 
-        // display the dialog
-        // click next on dialog to switch to the pastState
+        // display the dialog (MAKE SOMETHING FANCIER SO DIALOG APPEARS PROGRESSIVELY)
+        dialogBox.SetActive(true);
+        dialog.text = currentCustomer.GetCurrentQuestion().GetQuestion();
+
+        // once dialog is displayed, we can move to the past state
+        ChangeState(GameState.past);
     }
 
      private void PastState(){
@@ -137,6 +138,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Leave");
     }
 
+    //------------------------------EHLPERS---------------------------//
+
     public void placeCard(Spot spot, Card card){
         //place in the correctSpot
         switch (spot){
@@ -151,5 +154,10 @@ public class GameManager : MonoBehaviour
                  .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotPastZ, duration: 2f));
                 break;
         }
+    }
+
+      public Character PickCustomer(){
+        int randomIndex = Random.Range(0, characters.Count);
+        return characters[randomIndex];
     }
 }

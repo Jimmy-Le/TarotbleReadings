@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0750016f24e541442bf71090c9d28cba, type: 3}
   m_Name: PLaceholderChara
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  questions: []
+  questions:
+  - {fileID: 11400000, guid: 9a63e706b7d5e6f47b872729de6e7d0f, type: 2}
   image: {fileID: 21300000, guid: aeacd8ddfdb04c842be922e777334f2a, type: 3}
