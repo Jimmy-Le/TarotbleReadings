@@ -40,6 +40,13 @@ public class GameManager : MonoBehaviour
     private float _spotPastX;
     private float _spotPastY;
     private float _spotPastZ;
+    //present
+    private float _spotPresentX;
+    //future
+    private float _spotFutureX;
+    //bonus
+    private float _spotBonusX;
+
 
     //zoom
      private float _spotScaleZoom;
@@ -76,6 +83,9 @@ public class GameManager : MonoBehaviour
         _spotPastX = -1.52f;
         _spotPastY = -2.49f;
        _spotPastZ = -3.85f;
+       _spotPresentX = 0.24f;
+       _spotFutureX = 1.99f;
+       _spotBonusX = 3.77f;
 
         //zoom
         _spotRotationXZoom = 0f;
@@ -184,14 +194,26 @@ public class GameManager : MonoBehaviour
 
      private void PresentState(){
         Debug.Log("Present");
+        flipButton.SetActive(false);
+        exitViewButton.SetActive(false);
     }
 
      private void FutureState(){
         Debug.Log("Future");
+        flipButton.SetActive(false);
+        exitViewButton.SetActive(false);
+        yesButton.GetComponent<Button>().interactable = true;
+        noButton.GetComponent<Button>().interactable = true;
+        
     }
 
      private void BonusState(){
         Debug.Log("Bonus");
+        flipButton.SetActive(false);
+        exitViewButton.SetActive(false);
+        yesButton.GetComponent<Button>().interactable = true;
+        noButton.GetComponent<Button>().interactable = true;
+        deckButton.GetComponent<Button>().interactable = false;
     }
 
      private void ResponseState(){
@@ -227,6 +249,36 @@ public class GameManager : MonoBehaviour
                  .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
                  .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotPastZ, duration: 2f));
                 break;
+            case Spot.present:
+                Sequence.Create(cycles: 1, CycleMode.Yoyo)
+                 //shrink card
+                 .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 //place at past
+                 .Group(Tween.PositionX(card.GetTransform(), endValue: _spotPresentX, duration: 2f))
+                 .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
+                 .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotPastZ, duration: 2f));
+            break;
+            case Spot.future:
+                Sequence.Create(cycles: 1, CycleMode.Yoyo)
+                 //shrink card
+                 .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 //place at past
+                 .Group(Tween.PositionX(card.GetTransform(), endValue: _spotFutureX, duration: 2f))
+                 .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
+                 .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotPastZ, duration: 2f));
+            break;
+            case Spot.bonus:
+                Sequence.Create(cycles: 1, CycleMode.Yoyo)
+                 //shrink card
+                 .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 //place at past
+                 .Group(Tween.PositionX(card.GetTransform(), endValue: _spotBonusX, duration: 2f))
+                 .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
+                 .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotPastZ, duration: 2f));
+            break;
         }
     }
 
@@ -293,6 +345,12 @@ public class GameManager : MonoBehaviour
         PlaceCard(viewedCard.GetSpot(), viewedCard);
 
         ChangeState(previousState);
+    }
+
+    public void yesClicked(){
+        //go to response state
+        // let it know which answer was selected
+        
     }
 
     public CardScript CreateNewCard(){
