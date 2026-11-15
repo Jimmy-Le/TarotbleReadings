@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ccb489d94616884cb4163d8c814dbbd, type: 3}
-  m_Name: Question
+  m_Name: Confront
   m_EditorClassIdentifier: Assembly-CSharp::Question
   question: 'My lover has been staying out late and sneaking out of the house. Whenever I bring it up, they keep avoiding the questions. Should I confront them about this one last time? '
   yesAnswer: I will get my answers one way or another.
   noAnswer: No?!? I don't know why I even bothered coming here. I am getting my answers.
-  yesNextQ: 0
-  noNextQ: 0
+  yesNextQ: 1
+  noNextQ: 1

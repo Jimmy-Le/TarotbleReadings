@@ -2628,8 +2628,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   characters:
-  - {fileID: 11400000, guid: ffb8b90269194364fb6dbcd700cc4af7, type: 2}
   - {fileID: 11400000, guid: 0684737c636c9f5a6b862d2ea88062f9, type: 2}
+  - {fileID: 11400000, guid: 3843b79e1ca2d82a0904839eef885854, type: 2}
+  - {fileID: 11400000, guid: 6a7f02582812bcf4587b148f4d27af75, type: 2}
   deck: {fileID: 11400000, guid: 65d6942ccaac1414b844cd0e4707fd1f, type: 2}
   characterScript: {fileID: 2082992117}
   dialog: {fileID: 561350979}
