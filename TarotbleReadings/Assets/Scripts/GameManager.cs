@@ -1,21 +1,31 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using PrimeTween;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    private List<Character> characters;
-    //0 --> customer walks in
-    //1 --> picking past
-    //2 --> picking present
-    //3 --> picking future (YES/NO ARE ENABLED)
-    //4 --> Bonus card?
-    //5 --> (yes/no chosen, get the answer)
-    //6 --> Goodbye, restart
+    [SerializeField] private List<Character> characters;
+
+    [SerializeField] private Deck deck;
+
     private GameState gameState;
 
     private Character currentCustomer;
+    [SerializeField] private CharacterScript characterScript;
+
+    [SerializeField] private TextMeshProUGUI dialog;
+    [SerializeField] private GameObject dialogBox;
 
     public static GameManager GMInstance;
+
+    //for placing cards
+    private float _spotScale;
+    private float _spotRotationX;
+    private float _spotPastX;
+    private float _spotPastY;
+    private float _spotPastZ;
 
     void Awake(){
         //singleton stuff
@@ -30,17 +40,19 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameState = GameState.customerArrival;
+        ChangeState(GameState.customerArrival);
+        _spotScale = 0.31f;
+        _spotRotationX = -60f;
+        _spotPastX = -1.52f;
+        _spotPastY = -2.49f;
+       _spotPastZ = -3.85f;
     }
 
     void Update(){
         
     }
 
-    public Character PickCustomer(){
-        int randomIndex = Random.Range(0, characters.Count);
-        return characters[randomIndex];
-    }
+  //-----------------CHANGE STATE------------------------//
 
     public void ChangeState(GameState newState){
         gameState = newState;
@@ -75,6 +87,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //-----------------------STATE FUNCTIONS----------------------------//
+
     private void MainMenuState(){
         Debug.Log("main menu");
     }
@@ -86,11 +100,22 @@ public class GameManager : MonoBehaviour
      private void CustomerArrivalState(){
         Debug.Log("CustomerArrival");
         // slide in a character
-        // display the dialog
+        currentCustomer = PickCustomer();
+        characterScript.UpdateCharacter(currentCustomer);
+        characterScript.MoveToCenter();
+
+        // display the dialog (MAKE SOMETHING FANCIER SO DIALOG APPEARS PROGRESSIVELY)
+        dialogBox.SetActive(true);
+        dialog.text = currentCustomer.GetCurrentQuestion().GetQuestion();
+
+        // once dialog is displayed, we can move to the past state
+        ChangeState(GameState.past);
     }
 
      private void PastState(){
         Debug.Log("Past");
+        //activate the deck button
+        // when clicked, placed card on past spot, then move to present
     }
 
      private void PresentState(){
@@ -113,4 +138,26 @@ public class GameManager : MonoBehaviour
         Debug.Log("Leave");
     }
 
+    //------------------------------EHLPERS---------------------------//
+
+    public void placeCard(Spot spot, Card card){
+        //place in the correctSpot
+        switch (spot){
+            case Spot.past:
+               Sequence.Create(cycles: 10, CycleMode.Yoyo)
+                 //shrink card
+                 .Group(Tween.Scale(card.GetTransform(), endValue: _spotScale, duration: 2f, startDelay: 1))
+                 .Group(Tween.Rotation(card.GetTransform(), endValue: new Vector3(_spotRotationX, -180f, 0f), duration: 2f))
+                 //place at past
+                 .Group(Tween.PositionX(card.GetTransform(), endValue: _spotPastX, duration: 2f))
+                 .Group(Tween.PositionY(card.GetTransform(), endValue: _spotPastY, duration: 2f))
+                 .Group(Tween.PositionZ(card.GetTransform(), endValue: _spotPastZ, duration: 2f));
+                break;
+        }
+    }
+
+      public Character PickCustomer(){
+        int randomIndex = Random.Range(0, characters.Count);
+        return characters[randomIndex];
+    }
 }

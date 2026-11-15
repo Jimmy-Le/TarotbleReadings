@@ -20,4 +20,8 @@ public class Character : ScriptableObject
         return questions[currentQuestion];
     }
 
+    public Sprite GetImage(){
+        return image;
+    }
+
 }

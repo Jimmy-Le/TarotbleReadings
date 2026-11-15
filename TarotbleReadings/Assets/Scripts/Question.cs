@@ -8,4 +8,9 @@ public class Question : ScriptableObject
     [SerializeField] private string noAnswer;
     [SerializeField] private int yesNextQ;
     [SerializeField] private int noNextQ;
+
+
+    public string GetQuestion(){
+        return question;
+    }
 }
