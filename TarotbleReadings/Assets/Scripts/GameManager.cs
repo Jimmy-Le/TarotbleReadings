@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
     private Vector3 _deckPosition;
     private Vector3 _deckRotation;
 
+    private int deckCounter;
+
     void Awake(){
         //singleton stuff
         if(GMInstance == null){
@@ -84,6 +86,7 @@ public class GameManager : MonoBehaviour
        //deck position
        _deckPosition = new Vector3(-3.93f,-2.49f,-3.85f);
        _deckRotation = new Vector3(-60f,0f,0f);
+       deckCounter = 0;
 
        AudioManager.PlaySound(AudioManager.SoundType.Prismatic, 1f);
 
@@ -142,6 +145,11 @@ public class GameManager : MonoBehaviour
     }
 
      private void CustomerArrivalState(){
+        //reset deck
+        deckCounter = 0;
+        deck.ClearPulledCards();
+        _pulledCards.Clear();
+
         Debug.Log("CustomerArrival");
         deckButton.GetComponent<Button>().interactable = false;
         yesButton.SetActive(false);
@@ -244,8 +252,26 @@ public class GameManager : MonoBehaviour
     }
 
     public void deckClicked(){
+        switch(deckCounter){
+        case 0:
+            ChangeState(GameState.past);
+            break;
+        case 1:
+            //go to present
+            ChangeState(GameState.present);
+            break;
+        case 2:
+            //go to future
+            ChangeState(GameState.future);
+            break;
+        case 3:
+            //go to bonus
+            ChangeState(GameState.bonus);
+            break;
+       }
        CardScript pulledCard = CreateNewCard();
        ViewCard(pulledCard);
+       deckCounter += 1;
     }
 
     public void nextClicked(){
