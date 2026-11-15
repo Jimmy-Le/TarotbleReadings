@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0750016f24e541442bf71090c9d28cba, type: 3}
   m_Name: CatWoman
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  questions: []
+  questions:
+  - {fileID: 11400000, guid: 4a9911a6ff6421a9c9fe6be23dbe7c07, type: 2}
+  - {fileID: 11400000, guid: 436cf9111fa60c54badb0bfd452a45b0, type: 2}
+  - {fileID: 11400000, guid: 1ad4a932f98b5434b9fc2a95d1b4cbbf, type: 2}
+  - {fileID: 11400000, guid: 7b1121076e3f43d4a80b3aa63b24ec39, type: 2}
   image: {fileID: 21300000, guid: aeacd8ddfdb04c842be922e777334f2a, type: 3}

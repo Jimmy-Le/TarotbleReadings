@@ -15,5 +15,5 @@ MonoBehaviour:
   question: I finally found someone that accepted me for what I do! Should I propose to them right this second!?
   yesAnswer: Splendid! But perhaps... I might have to reconsider some life choices first...
   noAnswer: I see... it must be because of <i>that<i/> then...
-  yesNextQ: 4
-  noNextQ: 4
+  yesNextQ: 3
+  noNextQ: 3

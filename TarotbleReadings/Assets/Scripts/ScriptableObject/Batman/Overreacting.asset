@@ -15,5 +15,5 @@ MonoBehaviour:
   question: 'They found out about my double life. and is now upset about me. I don''t think it is such a big deal. Are they overeacting?  '
   yesAnswer: I knew it. They just can't understand the necessary sacrifices to keep our family safe!
   noAnswer: This can't be right.. I will have to plan what to do next...
-  yesNextQ: 4
-  noNextQ: 4
+  yesNextQ: 3
+  noNextQ: 3
