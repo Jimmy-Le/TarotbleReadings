@@ -49,6 +49,7 @@ public class Deck : ScriptableObject
     private bool GenerateReverse(){
         int coinFlip = Random.Range(0, 2);
         return coinFlip == 1;
+        // return true;
     }
 
     private bool checkCopies(Card card){
