@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 
+// Code by Daniel Bologna
+// https://blog.febucci.com/2026/05/how-to-make-a-typewriter-effect-in-unity-with-textmeshpro/
+
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class TextFader : MonoBehaviour
 {

@@ -696,6 +696,7 @@ GameObject:
   - component: {fileID: 561350978}
   - component: {fileID: 561350980}
   - component: {fileID: 561350979}
+  - component: {fileID: 561350981}
   m_Layer: 5
   m_Name: Dialog
   m_TagString: Untagged
@@ -822,6 +823,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 561350977}
   m_CullTransparentMesh: 1
+--- !u!114 &561350981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561350977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200df1c8b5e75d4b8b6a6bab78341d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextFader
+  charactersPerSecond: 5
 --- !u!1 &611329490
 GameObject:
   m_ObjectHideFlags: 0
@@ -2407,6 +2421,7 @@ MonoBehaviour:
   nextButton: {fileID: 1915374867}
   flipButton: {fileID: 962355166}
   exitViewButton: {fileID: 204052963}
+  textFader: {fileID: 561350981}
   cardPrefab: {fileID: 7574945392143127841, guid: c86a15c584e21fb4bbd3e064293a0698, type: 3}
 --- !u!1 &1523095958
 GameObject:
