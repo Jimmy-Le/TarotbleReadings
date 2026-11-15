@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ccb489d94616884cb4163d8c814dbbd, type: 3}
+  m_Name: Marriage
+  m_EditorClassIdentifier: Assembly-CSharp::Question
+  question: I finally found someone that accepted me for what I do! Should I propose to them right this second!?
+  yesAnswer: Splendid! But perhaps... I might have to reconsider some life choices first...
+  noAnswer: I see... it must be because of <i>that<i/> then...
+  yesNextQ: 4
+  noNextQ: 4
