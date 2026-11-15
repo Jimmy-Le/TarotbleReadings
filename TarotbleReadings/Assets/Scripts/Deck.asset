@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: Deck
   m_EditorClassIdentifier: Assembly-CSharp::Deck
   cards:
-  - {fileID: 11400000, guid: 2806a5b137078594dadfd33e5ad2a9a6, type: 2}
-  - {fileID: 11400000, guid: 4f2f076084c336e409d1ae9baf9d4fc3, type: 2}
-  - {fileID: 11400000, guid: aa1dba8b7d9f4bd4ca2d366348b8b198, type: 2}
-  - {fileID: 11400000, guid: 3b0cc107ab5a9854e881bdbee7e1e7a8, type: 2}
-  - {fileID: 11400000, guid: 5fe8d30362e8df947be8943a29c7c569, type: 2}
+  - {fileID: 11400000, guid: 6533c69c79246c64c85b74a589ac604a, type: 2}
+  - {fileID: 11400000, guid: fd5ba91b8958adc44aafaa749c70ae32, type: 2}
+  - {fileID: 11400000, guid: a10895e71ae9c7947b6df397c9398405, type: 2}
+  - {fileID: 11400000, guid: 65d2ed1518abc214b9ecd3ab41b508ea, type: 2}
+  - {fileID: 11400000, guid: 2a513a7be54bed948ba29ee8795ede20, type: 2}
+  - {fileID: 11400000, guid: 525b08419f4cd9d40980ed0d0b9fba5d, type: 2}
+  - {fileID: 11400000, guid: 9257f47983a994642af303fc818ad137, type: 2}
+  - {fileID: 11400000, guid: 47eb553b2a3c2b444a7bd0753e742ba8, type: 2}
+  - {fileID: 11400000, guid: 7562c59b46e34eb4caf621b4c1c184bf, type: 2}
+  - {fileID: 11400000, guid: 5f6ea24b2c157ec42897514dcfac0682, type: 2}

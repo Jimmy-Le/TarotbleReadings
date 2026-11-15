@@ -147,7 +147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.006867646, y: -2.37}
+  m_AnchoredPosition: {x: -0.006867646, y: -2.6}
   m_SizeDelta: {x: 3.4662, y: 0.5675}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &5156647468880096307
@@ -228,8 +228,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -460,6 +460,7 @@ MonoBehaviour:
   meshRendererImage: {fileID: 2554902104132075580}
   meshRendererBorder: {fileID: 4727346737871967608}
   textMeshProName: {fileID: 2378880254705347265}
+  cardTransform: {fileID: 0}
 --- !u!50 &994000343394398960
 Rigidbody2D:
   serializedVersion: 5
