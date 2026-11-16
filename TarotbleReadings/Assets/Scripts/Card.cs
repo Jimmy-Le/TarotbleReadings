@@ -41,5 +41,10 @@ public class Card : ScriptableObject
         return _reverse;
     }
 
+    public Rarity GetRarity()
+    {
+        return rarity;
+    }
+
     
 }
