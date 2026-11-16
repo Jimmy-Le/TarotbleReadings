@@ -30,6 +30,12 @@ public class AudioManager : MonoBehaviour
 
     public static void PlaySound(SoundType sound, float volume = 1)
     {
+        if (!instance)
+        {
+            instance = FindAnyObjectByType<AudioManager>();
+        }
+
+
         AudioClip[] clips = instance.soundList[(int)sound].sounds;
         AudioClip randomClip = clips[UnityEngine.Random.Range(0,clips.Length)];
        

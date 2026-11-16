@@ -50,6 +50,7 @@ public class TextFader : MonoBehaviour
             _textComponent.maxVisibleCharacters = i + 1;
             yield return new WaitForSeconds(delay);
         }
+        AudioManager.PlaySound(AudioManager.SoundType.Speech, 1f);
 
         // Ensure everything is visible at the end
         _textComponent.maxVisibleCharacters = totalCharacters;

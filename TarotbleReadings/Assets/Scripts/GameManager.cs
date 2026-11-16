@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextFader textFader;           // The script attached to the dialog box that will populate it
     
+    [SerializeField] AudioManager audioManager;
 
     public static GameManager GMInstance;
 
@@ -74,6 +75,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        audioManager = AudioManager.instance;
+
         _pulledCards = new List<GameObject>();
     }
 
@@ -104,7 +107,7 @@ public class GameManager : MonoBehaviour
 
         if(AudioManager.instance != null)
         {
-            AudioManager.PlaySound(AudioManager.SoundType.Prismatic, 1f);
+          
         }
        
 
@@ -178,6 +181,10 @@ public class GameManager : MonoBehaviour
         nextCustomerButton.SetActive(false);
         byeButton.SetActive(false);
         nextButton.SetActive(true);
+
+        // Play Customer Sounds
+        AudioManager.PlaySound(AudioManager.SoundType.NewCustomer, 1f);
+
         // slide in a character
         currentCustomer = PickCustomer();
         characterScript.UpdateCharacter(currentCustomer);
@@ -375,12 +382,14 @@ public class GameManager : MonoBehaviour
             ChangeState(GameState.bonus);
             break;
        }
+       AudioManager.PlaySound(AudioManager.SoundType.Deck, 0.6f);
        CardScript pulledCard = CreateNewCard();
        ViewCard(pulledCard);
        deckCounter += 1;
     }
 
     public void nextClicked(){
+        AudioManager.PlaySound(AudioManager.SoundType.Button, 1f);
         textFader.SkipToEnd();
         //changes state!
         ChangeState(GameState.past);
@@ -391,6 +400,19 @@ public class GameManager : MonoBehaviour
         float viewedRotationX = viewedCard.GetCardData().GetReverse() ? 180 : 0f;
         float viewedRotationY = viewedCard.GetCardData().GetReverse() ? 0f: 180f;
         Debug.Log(viewedCard.GetCardData().GetReverse());
+
+        // Play Music based on rarity 
+        switch(viewedCard.GetCardData().GetRarity()){
+          case Rarity.silver:
+            AudioManager.PlaySound(AudioManager.SoundType.Silver, 1f);
+            break;
+          case Rarity.gold:
+            AudioManager.PlaySound(AudioManager.SoundType.Gold, 1f);
+            break;
+          case Rarity.prismatic:
+            AudioManager.PlaySound(AudioManager.SoundType.Prismatic, 1f);
+            break;
+        }
       
         //rotate card to show other side
         Tween.Rotation(viewedCard.GetTransform(), endValue: new Vector3(viewedRotationX, viewedRotationY, 0f), duration: 2f);
@@ -401,6 +423,8 @@ public class GameManager : MonoBehaviour
 
     public void exitClicked(){
         Spot spot = Spot.past;
+
+        AudioManager.PlaySound(AudioManager.SoundType.Button, 1f);
         //moves card to its spot
         PlaceCard(viewedCard.GetSpot(), viewedCard);
 
@@ -408,6 +432,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void yesClicked(){
+        AudioManager.PlaySound(AudioManager.SoundType.Button, 1f);
         // let it know which answer was selected
         currentCustomer.GetCurrentQuestion().SetAnswer(Answer.yes);
         //set up the next question
@@ -417,6 +442,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void noClicked(){
+        AudioManager.PlaySound(AudioManager.SoundType.Button, 1f);
         // let it know which answer was selected
         currentCustomer.GetCurrentQuestion().SetAnswer(Answer.no);
         //set up the next question
@@ -427,16 +453,19 @@ public class GameManager : MonoBehaviour
 
     public void byeClicked(){
         //switch to leave state
+        AudioManager.PlaySound(AudioManager.SoundType.Button, 1f);
         ChangeState(GameState.leave);
     }
 
     public void nextCustomerClicked(){
+        AudioManager.PlaySound(AudioManager.SoundType.Button, 1f);
         characterScript.ResetPosition();
         ChangeState(GameState.customerArrival);
 
     }
 
     public CardScript CreateNewCard(){
+        AudioManager.PlaySound(AudioManager.SoundType.Deck, 1f);
          //instantiate a new card prefab
         GameObject newCard = Instantiate(cardPrefab, _deckPosition, Quaternion.Euler(_deckRotation));
         newCard.GetComponent<Transform>().localScale = new Vector3(_spotScale,_spotScale,_spotScale);
