@@ -435,10 +435,10 @@ public class GameManager : MonoBehaviour
         AudioManager.PlaySound(AudioManager.SoundType.Button, 1f);
         // let it know which answer was selected
         currentCustomer.GetCurrentQuestion().SetAnswer(Answer.yes);
+        ChangeState(GameState.response);
         //set up the next question
         currentCustomer.SetCurrentQuestion(currentCustomer.GetCurrentQuestion().GetYesNextQ());
         //go to response state
-        ChangeState(GameState.response);
     }
 
     public void noClicked(){
@@ -446,9 +446,9 @@ public class GameManager : MonoBehaviour
         // let it know which answer was selected
         currentCustomer.GetCurrentQuestion().SetAnswer(Answer.no);
         //set up the next question
+        ChangeState(GameState.response);
         currentCustomer.SetCurrentQuestion(currentCustomer.GetCurrentQuestion().GetNoNextQ());
         //go to response state
-        ChangeState(GameState.response);
     }
 
     public void byeClicked(){

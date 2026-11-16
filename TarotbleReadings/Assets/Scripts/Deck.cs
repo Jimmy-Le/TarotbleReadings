@@ -43,7 +43,26 @@ public class Deck : ScriptableObject
 
     private Rarity GenerateRarity(){
         //probability stuff
-        return Rarity.silver;
+
+        float silverProb = 70f;                                 // Get a silver rarity under 70%
+        float goldProb = 90f;                                   // Get a gold rarity from 70-90% (20% chance)
+        float prismaticProb = 100f;                             // Get a prismatic rarity from 90-100% (10% chance)
+      
+        float randomChance = Random.Range(0f,prismaticProb);
+
+        if (randomChance <= silverProb)
+        {
+            return Rarity.silver;
+        }
+        else if (randomChance > silverProb && randomChance <= goldProb)
+        {
+            return Rarity.gold;
+        }
+        else
+        {
+            return Rarity.prismatic;
+        }
+
     }
 
     private bool GenerateReverse(){
